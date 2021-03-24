@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+
+import Login from "./Login";
+import Tabs from "./Tabs";
+
+class App extends React.Component {
+  state = { login: false };
+
+  login = (val) => {
+    this.setState({ login: val });
+  };
+
+  render() {
+    return (
+      <div style={{ backgroundColor: "whitesmoke" }}>
+        {this.state.login === false ? <Login login={this.login} /> : <Tabs />}
+      </div>
+    );
+  }
 }
 
 export default App;
