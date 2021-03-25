@@ -7,7 +7,7 @@ import ImageCard from "./ImageCard";
 import "primeflex/primeflex.css";
 
 class Tabs extends React.Component {
-  state = { activityIndex: 1, images: [], clickImg: false };
+  state = { activityIndex: 1, images: [], clickImg: false, count: 0 };
 
   // To access webcam
   camera = (function () {
@@ -81,17 +81,29 @@ class Tabs extends React.Component {
       },
     ];
     if (localStorage.getItem("list") != null) {
-      let list = localStorage.getItem("list");
-      let newList = [...list, imageArray];
+      let list = JSON.parse(localStorage.getItem("list"));
+
+      let newList = [...list, ...imageArray];
       localStorage.setItem("list", JSON.stringify(newList));
     } else if (localStorage.getItem("list") == null) {
       localStorage.setItem("list", JSON.stringify(imageArray));
     }
   };
 
+  //To Manage count
+  onClickImage = () => {
+    if (this.state.count < 3) {
+      this.setState({ count: this.state.count + 1 });
+    }
+  };
+
   render() {
-    let arr = localStorage.getItem("list");
-    let finalArr = JSON.parse(arr);
+    let arr = JSON.parse(localStorage.getItem("list"));
+    let finalArr = [];
+    if (arr != null) {
+      finalArr = [...arr];
+    }
+
     console.log("Images", finalArr);
 
     return (
@@ -133,7 +145,7 @@ class Tabs extends React.Component {
                         });
                       }}
                     >
-                      Click pic
+                      Take Image
                     </Button>
                     <Button
                       label="Save Images"
@@ -167,9 +179,18 @@ class Tabs extends React.Component {
             <TabPanel header="Select 3 Dishes">
               <Card>
                 <div className="p-grid">
-                  {finalArr.map((data, index) => {
-                    return <ImageCard data={data} key={index} />;
-                  })}
+                  {finalArr.length !== 0 &&
+                    finalArr.map((data, index) => {
+                      return (
+                        <ImageCard
+                          data={data}
+                          key={index}
+                          index={index}
+                          count={this.state.count}
+                          onClickImage={this.onClickImage}
+                        />
+                      );
+                    })}
                 </div>
               </Card>
             </TabPanel>
