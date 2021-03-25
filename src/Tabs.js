@@ -3,6 +3,8 @@ import React from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import ImageCard from "./ImageCard";
+import "primeflex/primeflex.css";
 
 class Tabs extends React.Component {
   state = { activityIndex: 1, images: [], clickImg: false };
@@ -82,16 +84,15 @@ class Tabs extends React.Component {
       let list = localStorage.getItem("list");
       let newList = [...list, imageArray];
       localStorage.setItem("list", JSON.stringify(newList));
-      console.log("Not Null");
     } else if (localStorage.getItem("list") == null) {
       localStorage.setItem("list", JSON.stringify(imageArray));
-      console.log("Null");
     }
   };
 
   render() {
-    // let arr = localStorage.getItem("list");
-    // console.log("Arr", JSON.parse(arr));
+    let arr = localStorage.getItem("list");
+    let finalArr = JSON.parse(arr);
+    console.log("Images", finalArr);
 
     return (
       <div>
@@ -163,17 +164,14 @@ class Tabs extends React.Component {
                 )}
               </div>
             </TabPanel>
-            <TabPanel header="Result">
-              <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                quae ab illo inventore veritatis et quasi architecto beatae
-                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qui ratione voluptatem sequi
-                nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
-                modi.
-              </p>
+            <TabPanel header="Select 3 Dishes">
+              <Card>
+                <div className="p-grid">
+                  {finalArr.map((data, index) => {
+                    return <ImageCard data={data} key={index} />;
+                  })}
+                </div>
+              </Card>
             </TabPanel>
           </TabView>
         </div>

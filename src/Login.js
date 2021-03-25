@@ -62,7 +62,7 @@ class Login extends React.Component {
             className="p-formgroup-inline"
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="p-field">
+            <div className="p-field" style={{ width: "100%" }}>
               <label htmlFor="firstname5" className="p-sr-only">
                 Firstname
               </label>
@@ -75,7 +75,7 @@ class Login extends React.Component {
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
             </div>
-            <div className="p-field">
+            <div className="p-field" style={{ width: "100%" }}>
               <label htmlFor="lastname5" className="p-sr-only">
                 Password
               </label>
