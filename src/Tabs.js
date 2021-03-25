@@ -2,6 +2,7 @@ import React from "react";
 
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
 class Tabs extends React.Component {
   state = { activityIndex: 1, images: [], clickImg: false };
@@ -64,8 +65,34 @@ class Tabs extends React.Component {
     };
   })();
 
+  // To save Image of single users
+  onClickSaveImage = (e) => {
+    e.preventDefault();
+    let imageArray = [
+      {
+        totalPoints: 0,
+        image: this.state.images[0],
+      },
+      {
+        totalPoints: 0,
+        image: this.state.images[1],
+      },
+    ];
+    if (localStorage.getItem("list") != null) {
+      let list = localStorage.getItem("list");
+      let newList = [...list, imageArray];
+      localStorage.setItem("list", JSON.stringify(newList));
+      console.log("Not Null");
+    } else if (localStorage.getItem("list") == null) {
+      localStorage.setItem("list", JSON.stringify(imageArray));
+      console.log("Null");
+    }
+  };
+
   render() {
-    console.log("Image", this.state.images[0]);
+    // let arr = localStorage.getItem("list");
+    // console.log("Arr", JSON.parse(arr));
+
     return (
       <div>
         <div className="card">
@@ -73,7 +100,7 @@ class Tabs extends React.Component {
             <TabPanel header="Create a Poll">
               <div
                 style={{
-                  width: "18%",
+                  width: "35%",
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "1%",
@@ -88,35 +115,52 @@ class Tabs extends React.Component {
                   On Camera
                 </Button>
                 {this.state.clickImg && (
-                  <Button
-                    className="p-button-warning"
-                    onClick={() => {
-                      let image = this.camera.takeSnapshot();
-                      let newImage = image;
-                      this.setState({
-                        images: [...this.state.images, newImage],
-                      });
+                  <div
+                    style={{
+                      width: "60%",
+                      display: "flex",
+                      justifyContent: "space-between",
                     }}
                   >
-                    Click pic
-                  </Button>
+                    <Button
+                      className="p-button-warning"
+                      onClick={() => {
+                        let image = this.camera.takeSnapshot();
+                        let newImage = image;
+                        this.setState({
+                          images: [...this.state.images, newImage],
+                        });
+                      }}
+                    >
+                      Click pic
+                    </Button>
+                    <Button
+                      label="Save Images"
+                      className="p-button-success"
+                      onClick={(e) => this.onClickSaveImage(e)}
+                    />
+                  </div>
                 )}
               </div>
               <div
                 style={{
-                  width: "48%",
+                  width: "50%",
                   display: "flex",
                   justifyContent: "space-between",
                 }}
               >
-                <img
-                  src={`data:image/*;base64,${this.state.images[0]}`}
-                  alt="images"
-                />
-                <img
-                  src={`data:image/*;base64,${this.state.images[1]}`}
-                  alt="images"
-                />
+                {this.state.images[0] !== undefined && (
+                  <img
+                    src={`data:image/*;base64,${this.state.images[0]}`}
+                    alt="images"
+                  />
+                )}
+                {this.state.images[1] !== undefined && (
+                  <img
+                    src={`data:image/*;base64,${this.state.images[1]}`}
+                    alt="images"
+                  />
+                )}
               </div>
             </TabPanel>
             <TabPanel header="Result">
