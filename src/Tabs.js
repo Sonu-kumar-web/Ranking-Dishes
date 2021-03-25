@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
@@ -177,6 +178,19 @@ class Tabs extends React.Component {
               </div>
             </TabPanel>
             <TabPanel header="Select 3 Dishes">
+              <Card>
+                <Link
+                  to={{
+                    pathname: "/result",
+                  }}
+                >
+                  {/* <Button
+                    label="Show Final Result"
+                    className="p-button-success"
+                  /> */}
+                  Result
+                </Link>
+              </Card>
               <Card>
                 <div className="p-grid">
                   {finalArr.length !== 0 &&
