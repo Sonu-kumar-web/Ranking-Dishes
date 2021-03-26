@@ -19,10 +19,16 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div style={{ backgroundColor: "whitesmoke" }}>
-          {this.state.login === false ? <Login login={this.login} /> : <Tabs />}
-        </div>
         <Switch>
+          <Route exact path="/" component={Login}>
+            <div style={{ backgroundColor: "whitesmoke" }}>
+              {this.state.login === false ? (
+                <Login login={this.login} />
+              ) : (
+                <Tabs />
+              )}
+            </div>
+          </Route>
           <Route exact path="/result" component={Result} />
         </Switch>
       </Router>

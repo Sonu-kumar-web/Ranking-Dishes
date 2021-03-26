@@ -179,16 +179,8 @@ class Tabs extends React.Component {
             </TabPanel>
             <TabPanel header="Select 3 Dishes">
               <Card>
-                <Link
-                  to={{
-                    pathname: "/result",
-                  }}
-                >
-                  {/* <Button
-                    label="Show Final Result"
-                    className="p-button-success"
-                  /> */}
-                  Result
+                <Link to="/result" style={{ textDecoration: "none" }}>
+                  <Button label="Show Result" className="p-button-success" />
                 </Link>
               </Card>
               <Card>
