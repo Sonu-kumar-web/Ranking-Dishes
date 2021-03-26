@@ -105,7 +105,7 @@ class Tabs extends React.Component {
       finalArr = [...arr];
     }
 
-    console.log("Images", finalArr);
+    // console.log("Images", finalArr);
 
     return (
       <div>
