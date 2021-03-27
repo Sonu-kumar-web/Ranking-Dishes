@@ -10,7 +10,7 @@ import Tabs from "./Tabs";
 import Result from "./Result";
 
 class App extends React.Component {
-  state = { login: true };
+  state = { login: false };
 
   login = (val) => {
     this.setState({ login: val });
